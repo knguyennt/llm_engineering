@@ -13,7 +13,10 @@ def fetch_website_contents(url):
     Return the title and contents of the website at the given url;
     truncate to 2,000 characters as a sensible limit
     """
-    response = requests.get(url, headers=headers)
+    if url == "/":
+        response = requests.get("https://edwarddonner.com", headers=headers)
+    else:
+        response = requests.get(url, headers=headers)
     soup = BeautifulSoup(response.content, "html.parser")
     title = soup.title.string if soup.title else "No title found"
     if soup.body:
